@@ -1,0 +1,10 @@
+{
+  "hardware_id": "lilygo_techo",
+  "role": "room-server",
+  "source": "upstream-meshcore",
+  "upstream_repo": "meshcore-dev/MeshCore",
+  "upstream_tag": "room-server-v1.16.0",
+  "upstream_asset_name": "LilyGo_T-Echo_room_server-v1.16.0-07a3ca9.uf2",
+  "built_at": "2026-06-06T21:11:49Z",
+  "size_bytes": 823808
+}

@@ -1,0 +1,26 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Origin: meshcore-tdoa-gateway-installers
+Label: meshcore-tdoa-gateway-portal
+Suite: stable
+Codename: stable
+Date: Sat, 06 Jun 2026 21:12:13 +0000
+Architectures: all
+Description: meshcore-tdoa-gateway-portal flat apt repository
+MD5Sum:
+ e0bb4e8693b9d03c2baf5f0bbfdec0f6 37070 Packages
+ e2115433a9d94f2ea5352c0c5083fe43 4903 Packages.gz
+SHA1:
+ 93c791c8cf74e06aefafbb9508957d19b2898371 37070 Packages
+ aab80695b2c083d070ea977d88a69d3fa91c66ef 4903 Packages.gz
+SHA256:
+ ca3ab107743fd5881a9c78529ee867883ce3b6aaf97c12ec5c33ff3cce3c56fd 37070 Packages
+ d5bc293ddc5cc88f419c59c5265fa7d49cce9313c7398116222f107a11ee9c3c 4903 Packages.gz
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYIAB0WIQQNuHEvVkaBvee/vTrWPULH/q5CtgUCaiSNLQAKCRDWPULH/q5C
+tufbAQCObaJGHdr9/QXDF6JzPmXuS9/aKmlEMV2SnEz5ubVApwEAmHkp7FdZif8W
+ZUF5SFqxMQN+JtuRDZavUXCJ97h9Qw8=
+=3NWj
+-----END PGP SIGNATURE-----

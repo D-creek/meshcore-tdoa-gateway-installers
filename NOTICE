@@ -1,0 +1,39 @@
+meshcore-tdoa-gateway-installers
+================================
+
+This repository is the public distribution layer (apt repo, install
+script, firmware bundle, runtime patches) for the MeshCore TDOA gateway
+portal. The portal source code lives in a separate private repository.
+
+Third-party material redistributed here
+----------------------------------------
+
+Upstream MeshCore firmware
+  Source:    https://github.com/meshcore-dev/MeshCore
+  License:   MIT (see LICENSE)
+  Copyright: ripplebiz and MeshCore contributors
+
+  We redistribute pre-compiled `.bin` / `.uf2` artifacts built from
+  upstream releases (companion_radio_*, repeater, room_server variants
+  for Heltec V4, LilyGo T-Echo, RAK4631) under `/firmware/<hw>/upstream/`.
+  These are byte-for-byte the official upstream release artifacts.
+
+TDOA fork firmware
+  Source:    https://github.com/D-creek/MeshCore
+  License:   MIT (inherits upstream)
+  Copyright: ripplebiz + MeshCore contributors + D-creek (TDOA additions)
+
+  We redistribute pre-compiled TDOA-RX variants from D-creek's CI runs
+  under `/firmware/<hw>/<role>.<ext>` (e.g. tdoa-rx.bin, repeater-tdoa-
+  rx.bin). TDOA additions are layered on top of upstream MeshCore source
+  with timestamp + GPS telemetry instrumentation.
+
+Original work in this distribution
+-----------------------------------
+
+Portal binary  (`meshcore-tdoa-gateway-portal_*.deb`)
+  Pure-Python service: web UI + per-USB device config + MQTT broker
+  fan-out + auto-update timer. Original work under MIT (see LICENSE).
+
+Install script + runtime patches (`install.sh`, `patches/*`)
+  Original work under MIT (see LICENSE).

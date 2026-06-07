@@ -1,0 +1,31 @@
+{
+  "_comment": "Per-hardware metadata the portal Firmware UI surfaces. Keys are hardware_ids the bridge.info.published event resolves to via a small board-name → hardware-id map in main.py. NOTE on `instructions`: the portal triggers flash/DFU mode itself on Flash (esptool DTR/RTS reset for ESP32; 1200-baud USB touch for nRF52), so the manual button steps are written as a FALLBACK for when the automatic trigger can't reach the chip — they are not the normal path.",
+  "heltec_v4": {
+    "label": "Heltec V4 (LoRa32 v4) — ESP32-S3 + SX1262",
+    "instructions": "Just click Flash — the portal tries to reset the board into ESP32 download mode for you (esptool DTR/RTS). On this S3-native-USB board the auto-reset isn't always reliable, so the FALLBACK is more common here: if flashing can't connect to the chip, hold the BOOT button (next to USB-C) while plugging in USB, release BOOT after it's plugged in, then click Flash again. If it sticks, power-cycle the board and retry.",
+    "tool": "esptool",
+    "extension": "bin",
+    "auto_dfu": false
+  },
+  "lilygo_techo": {
+    "label": "LilyGo T-Echo — nRF52840 + SX1262 + integrated L76K",
+    "instructions": "Just click Flash — the portal drops the board into its bootloader for you (1200-baud USB touch) and copies the .uf2; the T-Echo reboots into the new firmware automatically. No need to touch the hardware. FALLBACK, only if the auto-touch fails: double-tap the small RESET button (pinhole near USB-C) so the TECHOBOOT drive mounts, then click Flash again.",
+    "tool": "uf2-dragdrop",
+    "extension": "uf2",
+    "auto_dfu_helper": "adafruit-nrfutil --touch 1200"
+  },
+  "rak4631": {
+    "label": "RAK4631 (WisCore) — nRF52840 + SX1262",
+    "instructions": "Just click Flash — the portal drops the board into its bootloader for you (1200-baud USB touch) and copies the .uf2; the board reboots into the new firmware automatically. No need to touch the hardware. FALLBACK, only if the auto-touch fails: double-tap the RESET button on the WisBlock carrier so the RAK4631 drive mounts, then click Flash again.",
+    "tool": "uf2-dragdrop",
+    "extension": "uf2",
+    "auto_dfu_helper": "adafruit-nrfutil --touch 1200"
+  },
+  "wio_e5_mini": {
+    "label": "Wio-E5 mini — STM32WLE5JC (integrated SX126x)",
+    "instructions": "Just click Flash — the portal asks the running firmware to jump into its resident OpenBootloader (companion CMD_ENTER_USB_DFU → the firmware sets a TAMP flag and resets), then writes the app over the CP2102 with stm32flash. No need to touch the hardware, and a bad app self-recovers (reset re-enters OpenBootloader). REQUIRES the one-time SWD install of OpenBootloader at 0x08000000 (see the MeshCore tools/openbl-wle5 port); a stock Wio without OpenBootloader can only be flashed via SWD/J-Link. The Wio's ROM bootloader is NOT serial-reachable (USART1 on PA9/PA10, BOOT0 not bonded out of the module).",
+    "tool": "stm32flash",
+    "extension": "bin",
+    "auto_dfu": true
+  }
+}
