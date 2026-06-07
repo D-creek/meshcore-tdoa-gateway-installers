@@ -2,15 +2,15 @@ Origin: meshcore-tdoa-gateway-installers
 Label: meshcore-tdoa-gateway-portal
 Suite: stable
 Codename: stable
-Date: Sun, 07 Jun 2026 20:29:03 +0000
+Date: Sun, 07 Jun 2026 21:30:19 +0000
 Architectures: all
 Description: meshcore-tdoa-gateway-portal flat apt repository
 MD5Sum:
- 3bf735bc40ecdc9867bc8bc28da9e3e8 41856 Packages
- 6dce4c7cc62a8b0298c15f38c5140b35 5249 Packages.gz
+ 290d0d90037ee9a0e1612f4ea8abbc66 43390 Packages
+ a2e114478d46c5097ffbef916bc6e42d 5368 Packages.gz
 SHA1:
- 3c8648a07d521c3c53e58c853c89b0fbbfb5a765 41856 Packages
- 96d0b6f52f4d93fa7e26641db749b2f6ec73b2dc 5249 Packages.gz
+ 69ab43da488b933963fb5dc008ab8a5cf3e50343 43390 Packages
+ 194b63ae0ff14b0d426b89faff36cba6416627bb 5368 Packages.gz
 SHA256:
- b0cac7d6709d74eea2236ed83921bf82a7390698bc30afb1476cf8c64e8588e1 41856 Packages
- 92645300abac9275a731cf1c8987bb269be88fb3bc61d4c5bd46132a1257ab98 5249 Packages.gz
+ 96b11495ffb701ac1fa8f5b9955f7a0e2dfdf54b5ec93899e373c84194979395 43390 Packages
+ 9414b30480e1e7d1874245105f8e46ee919c0f7685db4474542f17aa24d53bcb 5368 Packages.gz
