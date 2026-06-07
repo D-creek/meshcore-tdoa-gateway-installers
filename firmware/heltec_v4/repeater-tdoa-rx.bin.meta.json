@@ -3,8 +3,8 @@
   "role": "repeater-tdoa-rx",
   "source": "tdoa-fork",
   "tdoa_repo": "D-creek/MeshCore",
-  "tdoa_tag": "tdoa-1.12.41",
+  "tdoa_tag": "tdoa-1.12.42",
   "tdoa_asset_name": "heltec_v4_repeater_tdoa_rx_idf5_mirror_preamble.bin",
-  "built_at": "2026-06-06T21:11:49Z",
-  "size_bytes": 1398032
+  "built_at": "2026-06-07T13:56:58Z",
+  "size_bytes": 1399136
 }
