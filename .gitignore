@@ -1,0 +1,19 @@
+# Secrets — never commit
+*.secret
+.env
+.env.*
+!.env.example
+secrets/
+credentials*
+*token*.txt
+id_rsa
+id_ed25519
+*.pem
+*.key
+*.pfx
+
+# Common build / editor artifacts
+*.bak
+*.swp
+.DS_Store
+__pycache__/

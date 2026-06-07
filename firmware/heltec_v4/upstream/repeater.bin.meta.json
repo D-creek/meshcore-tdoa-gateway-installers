@@ -1,0 +1,10 @@
+{
+  "hardware_id": "heltec_v4",
+  "role": "repeater",
+  "source": "upstream-meshcore",
+  "upstream_repo": "meshcore-dev/MeshCore",
+  "upstream_tag": "repeater-v1.16.0",
+  "upstream_asset_name": "heltec_v4_repeater-v1.16.0-07a3ca9-merged.bin",
+  "built_at": "2026-06-06T21:11:49Z",
+  "size_bytes": 1254224
+}
