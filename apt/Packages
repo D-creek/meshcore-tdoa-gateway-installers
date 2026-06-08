@@ -286,9 +286,9 @@ Depends: python3 (>= 3.9), python3-venv, python3-pip, adduser
 Recommends: systemd
 Filename: ./meshcore-tdoa-gateway-bridge_0.5.6-1_all.deb
 Size: 114864
-MD5sum: 5ab62b0fc557bbaee716629878e59690
-SHA1: 907e14500bff96e4f1ee5231487e9ce08ad0feb2
-SHA256: d98f97e94122936faafe6428c1f13107ff358a72a3b2b9b9612e4dee375ec0d6
+MD5sum: 6e913ba4143e4cdb0827e372618e7934
+SHA1: ff739bf07a5cb15a903eae8a0e74ad1cb6599b01
+SHA256: 96248415fef4a24b1dd8b33a98e706b6fc75b4cd9ef35c20b2961e760ec57994
 Section: net
 Priority: optional
 Homepage: https://github.com/D-creek/meshcore-tdoa-gateway
@@ -1037,14 +1037,14 @@ Package: meshcore-tdoa-gateway-portal
 Version: 0.5.4-1
 Architecture: all
 Maintainer: D-creek <noreply@dahllie.nl>
-Installed-Size: 17394
+Installed-Size: 17395
 Depends: python3 (>= 3.9), python3-venv, python3-pip, adduser, curl, stm32flash, meshcore-tdoa-gateway-bridge
 Recommends: systemd
 Filename: ./meshcore-tdoa-gateway-portal_0.5.4-1_all.deb
-Size: 2822940
-MD5sum: 2443aee648cc47d85849f781bb72cf75
-SHA1: 4381519c2ab4c06e8466a1e64d7235eb939c044d
-SHA256: 1b0f64ba044fccd61096d87153c561e6ac3fbcf08bbc522fb41421867681b86b
+Size: 2824692
+MD5sum: 5c349007ec520462e1fb8ab269e23b33
+SHA1: b575e35711e3a53350c7fab8ac3c2fa71d9bd8bc
+SHA256: 956af9649af2d45adc7e2cfd5d8761f1bba65d1f22cd9bd108a98b8723147d64
 Section: net
 Priority: optional
 Homepage: https://github.com/D-creek/meshcore-tdoa-gateway
