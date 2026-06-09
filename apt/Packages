@@ -334,31 +334,6 @@ Description: MeshCore TDOA gateway portal
  untouched.
 
 Package: meshcore-tdoa-gateway-portal
-Version: 0.3.84-1
-Architecture: all
-Maintainer: D-creek <noreply@dahllie.nl>
-Installed-Size: 16950
-Depends: python3 (>= 3.9), python3-venv, python3-pip, adduser, stm32flash
-Recommends: systemd
-Filename: ./meshcore-tdoa-gateway-portal_0.3.84-1_all.deb
-Size: 2736100
-MD5sum: 26aab0d0a77d9a272d4525fd6c3603b4
-SHA1: 593caa4a1d7986750076f7cc494c2a15abbcd126
-SHA256: 40983d55407e90922a213af90eb7e05a16ec7f9305cca618bd725304af8b94e5
-Section: net
-Priority: optional
-Homepage: https://github.com/D-creek/meshcore-tdoa-gateway
-Description: MeshCore TDOA gateway portal
- Web UI for configuring per-USB-device MQTT broker fan-out and viewing
- receiver health (GPS fix, satellite count, PPS lock, timing drift) on
- a Pi-class gateway running multiple LoRa receivers. Pure Python; the
- same .deb installs cleanly on amd64, arm64, armhf (Pi 3 / Orange Pi
- One / Pi Zero 2W) and armv6 (Raspberry Pi One B+ / Pi Zero v1).
- The postinst script creates an isolated venv at
- /opt/meshcore-tdoa-gateway-portal/venv so the host's Python remains
- untouched.
-
-Package: meshcore-tdoa-gateway-portal
 Version: 0.3.85-1
 Architecture: all
 Maintainer: D-creek <noreply@dahllie.nl>
@@ -1045,6 +1020,31 @@ Size: 2824692
 MD5sum: 5c349007ec520462e1fb8ab269e23b33
 SHA1: b575e35711e3a53350c7fab8ac3c2fa71d9bd8bc
 SHA256: 956af9649af2d45adc7e2cfd5d8761f1bba65d1f22cd9bd108a98b8723147d64
+Section: net
+Priority: optional
+Homepage: https://github.com/D-creek/meshcore-tdoa-gateway
+Description: MeshCore TDOA gateway portal
+ Web UI for configuring per-USB-device MQTT broker fan-out and viewing
+ receiver health (GPS fix, satellite count, PPS lock, timing drift) on
+ a Pi-class gateway running multiple LoRa receivers. Pure Python; the
+ same .deb installs cleanly on amd64, arm64, armhf (Pi 3 / Orange Pi
+ One / Pi Zero 2W) and armv6 (Raspberry Pi One B+ / Pi Zero v1).
+ The postinst script creates an isolated venv at
+ /opt/meshcore-tdoa-gateway-portal/venv so the host's Python remains
+ untouched.
+
+Package: meshcore-tdoa-gateway-portal
+Version: 0.5.5-1
+Architecture: all
+Maintainer: D-creek <noreply@dahllie.nl>
+Installed-Size: 17408
+Depends: python3 (>= 3.9), python3-venv, python3-pip, adduser, curl, stm32flash, meshcore-tdoa-gateway-bridge
+Recommends: systemd
+Filename: ./meshcore-tdoa-gateway-portal_0.5.5-1_all.deb
+Size: 2828240
+MD5sum: b2a5ab7a1307bc32f9f19e79882f2b20
+SHA1: dc299c551293897208cb71b579d2082555917da3
+SHA256: 943feb2fc77b1522eb6c451023bc49b307609fe5cbc1298785ea92ce959a0d8b
 Section: net
 Priority: optional
 Homepage: https://github.com/D-creek/meshcore-tdoa-gateway
