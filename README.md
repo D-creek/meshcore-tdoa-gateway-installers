@@ -124,9 +124,11 @@ Both a **companion** and a **repeater** TDOA-RX image are provided where built
 |---|---|---|
 | Heltec V4 | ✅ | ✅ |
 | Wio-E5 | ✅ | ✅ |
-| RAK4631 | ✅ | in progress |
-| LilyGo T-Echo | ✅ | in progress |
-| Xiao S3 Wio | ✅ | in progress |
+| RAK4631 | ✅ | ✅ ¹ |
+| LilyGo T-Echo | ✅ | ✅ ¹ |
+| Xiao S3 Wio | ✅ | ✅ ¹ |
+
+¹ Repeater TDOA-RX images are newly published and compile-verified, but not yet field-tested in repeater mode — treat as experimental.
 
 Each asset has a sibling `.sha256` and `.meta.json` (hardware_id, role, source,
 tag, original asset name) for provenance. Vanilla **upstream-MeshCore** images
