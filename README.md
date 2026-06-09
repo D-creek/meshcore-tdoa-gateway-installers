@@ -112,32 +112,25 @@ gateways, backend/frontend, and the firmware-update pipeline.
 
 ## Standalone firmware downloads
 
-Per-hardware, per-role MeshCore firmware images are mirrored at
-`/firmware/<hardware_id>/...` for operators who want to flash without
-installing the portal:
+TDOA-RX firmware is published as **public GitHub Releases** on this repo — the
+same images the gateway OTA flashes — so you can flash manually without the
+portal. See the **[Releases page](../../releases)**; each release carries the
+per-board images named by build environment (`.bin` / `.uf2` / `.zip` / `.hex`).
 
-```
-firmware/heltec_v4/tdoa-rx.bin                              # TDOA fork
-firmware/heltec_v4/repeater-tdoa-rx.bin                     # TDOA fork
-firmware/heltec_v4/upstream/companion-radio-usb.bin         # vanilla
-firmware/heltec_v4/upstream/companion-radio-ble.bin         # vanilla
-firmware/heltec_v4/upstream/repeater.bin                    # vanilla
-firmware/heltec_v4/upstream/room-server.bin                 # vanilla
-firmware/lilygo_techo/tdoa-rx.uf2                           # TDOA fork
-firmware/lilygo_techo/upstream/companion-radio-usb.uf2      # vanilla
-firmware/lilygo_techo/upstream/companion-radio-ble.uf2      # vanilla
-firmware/lilygo_techo/upstream/repeater.uf2                 # vanilla
-firmware/lilygo_techo/upstream/room-server.uf2              # vanilla
-firmware/rak4631/tdoa-rx.uf2                                # TDOA fork
-firmware/rak4631/upstream/companion-radio-usb.uf2           # vanilla
-firmware/rak4631/upstream/companion-radio-ble.uf2           # vanilla
-firmware/rak4631/upstream/repeater.uf2                      # vanilla
-firmware/rak4631/upstream/room-server.uf2                   # vanilla
-```
+Both a **companion** and a **repeater** TDOA-RX image are provided where built
+(full matrix in [ARCHITECTURE.md](ARCHITECTURE.md#tdoa-rx-firmware-per-board)):
 
-Each binary ships with sibling `.sha256` (hex digest) and `.meta.json`
-(hardware_id, role, source, upstream_tag, original asset name) for
-provenance.
+| Board | Companion TDOA-RX | Repeater TDOA-RX |
+|---|---|---|
+| Heltec V4 | ✅ | ✅ |
+| Wio-E5 | ✅ | ✅ |
+| RAK4631 | ✅ | in progress |
+| LilyGo T-Echo | ✅ | in progress |
+| Xiao S3 Wio | ✅ | in progress |
+
+Each asset has a sibling `.sha256` and `.meta.json` (hardware_id, role, source,
+tag, original asset name) for provenance. Vanilla **upstream-MeshCore** images
+(the one-click revert) are mirrored under [`firmware/<hw>/upstream/`](firmware/).
 
 ## How releases work
 
