@@ -150,10 +150,12 @@ managed pipeline plus a manual fallback.
 
 ### TDOA-RX firmware per board
 
-Each receiver board has a **companion** TDOA-RX image (a dedicated receiver) and,
-where built, a **repeater** TDOA-RX image (a repeater node that *also* timestamps
-packets for TDOA). All are published as public Releases on this repo and offered
-in the portal/UI, alongside a one-click **upstream-vanilla** revert per board.
+**Both** flavours run the **same TDOA receive/timestamp path** — they differ only
+in the node's base role. The **companion** TDOA-RX image is a dedicated
+USB-attached receiver; the **repeater** TDOA-RX image is a mesh repeater that
+*also* timestamps for TDOA, so one node both extends the mesh and contributes
+receptions. All are published as public Releases on this repo and offered in the
+portal/UI, alongside a one-click **upstream-vanilla** revert per board.
 
 | Board | Companion TDOA-RX | Repeater TDOA-RX |
 |---|---|---|
