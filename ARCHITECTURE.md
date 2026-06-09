@@ -116,11 +116,16 @@ managed pipeline plus a manual fallback.
   - **upstream vanilla MeshCore** — the unmodified official build, offered as a
     one-click revert. Both are MIT-licensed.
 - **Build → release** — tagging a firmware version triggers CI to build the
-  per-board / per-role environment matrix and publish a GitHub Release whose
-  assets are the per-environment images (`.bin` / `.hex` / `.zip` / `.uf2`).
-- **Catalog** — the backend polls Releases and imports the available images into
-  a catalog, matched to each gateway's detected hardware, so the UI can surface
-  an "upgrade available" badge per device.
+  per-board / per-role environment matrix and publish the TDOA-RX images as a
+  **public GitHub Release on this installers repo** (assets named per build
+  environment: `.bin` / `.hex` / `.zip` / `.uf2`). Only the compiled binaries are
+  published this way — the fork's source stays private.
+- **Catalog** — the backend polls this repo's public Releases and imports the
+  available images into a catalog, matched to each gateway's detected hardware,
+  so the UI can surface an "upgrade available" badge per device. Because the
+  Releases are public, each catalog entry carries an anonymous download URL, so a
+  gateway fetches its firmware **with no credential** — there is no per-device
+  token.
 - **Operator-initiated OTA** — from the portal or frontend, an operator picks a
   release; a job is queued and delivered to the target gateway over MQTT, and the
   gateway's **firmware-update dispatcher** flashes the attached device in place.
