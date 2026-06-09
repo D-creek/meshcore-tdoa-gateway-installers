@@ -161,9 +161,11 @@ portal/UI, alongside a one-click **upstream-vanilla** revert per board.
 |---|---|---|
 | Heltec V4 (ESP32) | ✅ | ✅ |
 | Wio-E5 (STM32WL) | ✅ | ✅ |
-| RAK4631 (nRF52) | ✅ | in progress |
-| LilyGo T-Echo (nRF52) | ✅ | in progress |
-| Xiao S3 Wio (ESP32-S3) | ✅ | in progress |
+| RAK4631 (nRF52) | ✅ | ✅ ¹ |
+| LilyGo T-Echo (nRF52) | ✅ | ✅ ¹ |
+| Xiao S3 Wio (ESP32-S3) | ✅ | ✅ ¹ |
+
+¹ Repeater TDOA-RX images are newly published and compile-verified, but not yet field-tested in repeater mode — treat as experimental.
 
 ---
 
