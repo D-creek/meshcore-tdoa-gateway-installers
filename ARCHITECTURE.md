@@ -148,6 +148,21 @@ managed pipeline plus a manual fallback.
   software** current automatically; **device firmware** updates are always
   operator-initiated, never automatic.
 
+### TDOA-RX firmware per board
+
+Each receiver board has a **companion** TDOA-RX image (a dedicated receiver) and,
+where built, a **repeater** TDOA-RX image (a repeater node that *also* timestamps
+packets for TDOA). All are published as public Releases on this repo and offered
+in the portal/UI, alongside a one-click **upstream-vanilla** revert per board.
+
+| Board | Companion TDOA-RX | Repeater TDOA-RX |
+|---|---|---|
+| Heltec V4 (ESP32) | ✅ | ✅ |
+| Wio-E5 (STM32WL) | ✅ | ✅ |
+| RAK4631 (nRF52) | ✅ | in progress |
+| LilyGo T-Echo (nRF52) | ✅ | in progress |
+| Xiao S3 Wio (ESP32-S3) | ✅ | in progress |
+
 ---
 
 ## Where things live
