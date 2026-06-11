@@ -3,8 +3,8 @@
   "role": "repeater-tdoa-rx",
   "source": "tdoa-fork",
   "tdoa_repo": "D-creek/meshcore-tdoa-gateway-installers",
-  "tdoa_tag": "tdoa-1.12.43",
+  "tdoa_tag": "tdoa-1.12.47",
   "tdoa_asset_name": "RAK_4631_repeater_tdoa_rx.zip",
-  "built_at": "2026-06-10T20:57:32Z",
+  "built_at": "2026-06-11T07:10:52Z",
   "size_bytes": 487531
 }

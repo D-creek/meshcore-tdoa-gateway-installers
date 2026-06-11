@@ -3,8 +3,8 @@
   "role": "tdoa-rx",
   "source": "tdoa-fork",
   "tdoa_repo": "D-creek/meshcore-tdoa-gateway-installers",
-  "tdoa_tag": "tdoa-1.12.45",
+  "tdoa_tag": "tdoa-1.12.47",
   "tdoa_asset_name": "LilyGo_T-Echo_companion_radio_usb_tdoa_rx.uf2",
-  "built_at": "2026-06-10T20:57:32Z",
+  "built_at": "2026-06-11T07:10:52Z",
   "size_bytes": 863232
 }
