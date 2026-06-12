@@ -4,10 +4,11 @@ Public distribution layer for the
 [`meshcore-tdoa-gateway`](https://github.com/D-creek/meshcore-tdoa-gateway)
 portal:
 
-- apt repo under `apt/` (Pis pull updates from here hourly)
+- apt repo under `apt/` — **GPG-signed** (Pis verify it via `signed-by`); the
+  on-Pi auto-updater applies new releases on a 12 h timer, and the cloud can
+  trigger an immediate update via the heartbeat when a newer version is published
 - one-line `install.sh` (Pis run it once on first boot)
 - pre-built firmware bundle under `firmware/` (per-hardware, per-role)
-- runtime `patches/` re-applied after every apt operation
 - attribution (`NOTICE` + `LICENSE`)
 
 The portal **source** code lives in a separate **private** repo. Only
@@ -65,15 +66,26 @@ Python <3.9 with a friendly hint rather than half-install.
 
 ## Manual apt-source setup (alternative to the one-liner)
 
+The apt `Release` file is **GPG-signed**, so register the keyring and pin the
+source to it with `signed-by` (never use `[trusted=yes]` — that disables
+signature verification and a network attacker could feed you a forged archive):
+
 ```bash
-echo 'deb [trusted=yes] https://d-creek.github.io/meshcore-tdoa-gateway-installers/apt ./' \
+sudo install -d -m 0755 /etc/apt/keyrings
+# Fetch + verify the signing key (fingerprint pinned: …D63D42C7FEAE42B6)
+curl -fsSL https://d-creek.github.io/meshcore-tdoa-gateway-installers/meshcore-tdoa-gateway-keyring.asc \
+  | sudo gpg --dearmor -o /etc/apt/keyrings/meshcore-tdoa-gateway.gpg
+gpg --show-keys --with-colons /etc/apt/keyrings/meshcore-tdoa-gateway.gpg \
+  | awk -F: '/^fpr:/{print $10; exit}'   # must end in D63D42C7FEAE42B6
+
+echo 'deb [signed-by=/etc/apt/keyrings/meshcore-tdoa-gateway.gpg] https://d-creek.github.io/meshcore-tdoa-gateway-installers/apt ./' \
   | sudo tee /etc/apt/sources.list.d/meshcore-tdoa-gateway.list
 sudo apt-get update
 sudo apt-get install meshcore-tdoa-gateway-portal
 ```
 
-GPG signing of the apt `Release` file is on the roadmap; today the source
-is marked `[trusted=yes]` so apt accepts the unsigned archive.
+`install.sh` does exactly this for you (key fetch + fingerprint pin + `signed-by`
+source); the manual steps above are only for a hand-built setup.
 
 ## What it installs
 
