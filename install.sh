@@ -213,7 +213,13 @@ apt-get update \
 # ── 4. install / upgrade the package ─────────────────────────────────
 
 echo "[install] apt-get install $PKG_NAME ..."
-DEBIAN_FRONTEND=noninteractive apt-get install -y -qq "$PKG_NAME"
+# --force-confdef/--force-confold: portal.env is a conffile the portal writes at
+# runtime; on a re-run/upgrade where the template changed, a bare noninteractive
+# apt would EOF on the conffile prompt and half-configure the package. Keep the
+# local file (the postinst migrates any new keys). Matches auto-update.sh.
+DEBIAN_FRONTEND=noninteractive apt-get install -y -qq \
+  -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold \
+  "$PKG_NAME"
 
 # ── 4.5. tear down the legacy local-patch hook (C-1 supply-chain fix) ─
 #
