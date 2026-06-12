@@ -619,31 +619,6 @@ Description: MeshCore TDOA USB-to-MQTT bridge
  /opt/meshcore-tdoa-gateway-bridge/venv.
 
 Package: meshcore-tdoa-gateway-portal
-Version: 0.4.0-1
-Architecture: all
-Maintainer: D-creek <noreply@dahllie.nl>
-Installed-Size: 17043
-Depends: python3 (>= 3.9), python3-venv, python3-pip, adduser, stm32flash, meshcore-tdoa-gateway-bridge
-Recommends: systemd
-Filename: ./meshcore-tdoa-gateway-portal_0.4.0-1_all.deb
-Size: 2765144
-MD5sum: bfb1a029693960011c72e92633713d3e
-SHA1: ebac8b0841768369563e1ab74b9faa4c25c7d0ad
-SHA256: da57c4173648dab8b45e7e32b89852a5d7ae931327145f6a6856861293068ff9
-Section: net
-Priority: optional
-Homepage: https://github.com/D-creek/meshcore-tdoa-gateway
-Description: MeshCore TDOA gateway portal
- Web UI for configuring per-USB-device MQTT broker fan-out and viewing
- receiver health (GPS fix, satellite count, PPS lock, timing drift) on
- a Pi-class gateway running multiple LoRa receivers. Pure Python; the
- same .deb installs cleanly on amd64, arm64, armhf (Pi 3 / Orange Pi
- One / Pi Zero 2W) and armv6 (Raspberry Pi One B+ / Pi Zero v1).
- The postinst script creates an isolated venv at
- /opt/meshcore-tdoa-gateway-portal/venv so the host's Python remains
- untouched.
-
-Package: meshcore-tdoa-gateway-portal
 Version: 0.4.1-1
 Architecture: all
 Maintainer: D-creek <noreply@dahllie.nl>
@@ -1180,6 +1155,31 @@ Size: 20946568
 MD5sum: 78e03312e545217eff656967a96bc385
 SHA1: ed9f012148b2a6d17de3760df5f57544c4558388
 SHA256: 1eb45573fc3241d5028d3a302011e33c3d9a1674d197a333a68aa3d7b36efc15
+Section: net
+Priority: optional
+Homepage: https://github.com/D-creek/meshcore-tdoa-gateway
+Description: MeshCore TDOA gateway portal
+ Web UI for configuring per-USB-device MQTT broker fan-out and viewing
+ receiver health (GPS fix, satellite count, PPS lock, timing drift) on
+ a Pi-class gateway running multiple LoRa receivers. Pure Python; the
+ same .deb installs cleanly on amd64, arm64, armhf (Pi 3 / Orange Pi
+ One / Pi Zero 2W) and armv6 (Raspberry Pi One B+ / Pi Zero v1).
+ The postinst script creates an isolated venv at
+ /opt/meshcore-tdoa-gateway-portal/venv so the host's Python remains
+ untouched.
+
+Package: meshcore-tdoa-gateway-portal
+Version: 0.5.26-1
+Architecture: all
+Maintainer: D-creek <noreply@dahllie.nl>
+Installed-Size: 24309
+Depends: python3 (>= 3.9), python3-venv, python3-pip, adduser, curl, stm32flash, meshcore-tdoa-gateway-bridge
+Recommends: systemd
+Filename: ./meshcore-tdoa-gateway-portal_0.5.26-1_all.deb
+Size: 20947868
+MD5sum: 39790c70bfa76ede50621df5d680aa92
+SHA1: e9561f7dea4f18427561e9cbf00be3b924396568
+SHA256: e0e31cde21e68bb489cd7e2ae35cb7f2dddf33c91b05ee30c28cb34191207808
 Section: net
 Priority: optional
 Homepage: https://github.com/D-creek/meshcore-tdoa-gateway
