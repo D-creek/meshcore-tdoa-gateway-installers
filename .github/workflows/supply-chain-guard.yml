@@ -1,0 +1,41 @@
+name: Supply-chain guard
+
+# Fails if the retired runtime-patch mechanism or an unsigned apt source is
+# reintroduced. Background: an apt `DPkg::Post-Invoke` hook used to curl
+# `patches/apply-patches.sh` from the public mirror and run it as root on EVERY
+# apt operation — a fleet-wide RCE vector. It was removed; fixes now ship inside
+# the GPG-signed .deb. This guard keeps it from creeping back.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No retired patch mechanism / no unsigned apt source
+        run: |
+          fail=0
+
+          # (1) The obsolete root-run patch script must not return.
+          if [ -e patches/apply-patches.sh ]; then
+            echo "::error file=patches/apply-patches.sh::patches/apply-patches.sh was reintroduced. The apt Post-Invoke patch hook was removed as a supply-chain RCE — ship fixes inside the signed .deb, not via a curl'd runtime patch."
+            fail=1
+          fi
+
+          # (2) No file may register an UNSIGNED apt source. `signed-by=<keyring>`
+          #     is required; `[trusted=yes]` disables signature verification and
+          #     lets an active-network attacker feed a forged archive. (The
+          #     teardown comments in install.sh that merely MENTION the string in
+          #     prose don't match this — we only flag a real `deb [trusted=yes]`
+          #     source line.)
+          if grep -RInE '^[^#]*deb \[trusted=yes\][[:space:]]+https?://' . --exclude-dir=.git 2>/dev/null; then
+            echo "::error::a 'deb [trusted=yes]' apt source (signature verification OFF) was found. Use 'deb [signed-by=/etc/apt/keyrings/meshcore-tdoa-gateway.gpg] ...'."
+            fail=1
+          fi
+
+          if [ "$fail" -eq 0 ]; then echo "supply-chain guard: clean ✓"; fi
+          exit $fail
