@@ -17,3 +17,16 @@ id_ed25519
 *.swp
 .DS_Store
 __pycache__/
+
+# --- AI/agent + internal working files (never publish) ---
+.claude/
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+.cursor/
+.cursorrules
+MEMORY.md
+memory/
+plans/
+docs/gateway-reviews/
+docs/superpowers/
