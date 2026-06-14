@@ -21,6 +21,13 @@
     "extension": "uf2",
     "auto_dfu_helper": "adafruit-nrfutil --touch 1200"
   },
+  "xiao_s3_wio": {
+    "label": "Seeed XIAO ESP32-S3 — ESP32-S3 + Wio-SX1262",
+    "instructions": "Just click Flash — the portal resets the XIAO into the ESP32-S3 USB-JTAG ROM bootloader for you (esptool usb_reset → default_reset). On this S3-native-USB board the auto-reset isn't always reliable, so the FALLBACK: hold the BOOT button on the XIAO while plugging in USB-C, release after it's plugged in, then click Flash again. If it sticks, power-cycle (>15s unplugged) and retry.",
+    "tool": "esptool",
+    "extension": "bin",
+    "auto_dfu": false
+  },
   "wio_e5_mini": {
     "label": "Wio-E5 mini — STM32WLE5JC (integrated SX126x)",
     "instructions": "Just click Flash — the portal asks the running firmware to jump into its resident OpenBootloader (companion CMD_ENTER_USB_DFU → the firmware sets a TAMP flag and resets), then writes the app over the CP2102 with stm32flash. No need to touch the hardware, and a bad app self-recovers (reset re-enters OpenBootloader). REQUIRES the one-time SWD install of OpenBootloader at 0x08000000 (see the MeshCore tools/openbl-wle5 port); a stock Wio without OpenBootloader can only be flashed via SWD/J-Link. The Wio's ROM bootloader is NOT serial-reachable (USART1 on PA9/PA10, BOOT0 not bonded out of the module).",
