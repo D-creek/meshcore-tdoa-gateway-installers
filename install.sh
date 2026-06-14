@@ -123,24 +123,20 @@ cat <<EOF
     5. systemctl enable --now $PKG_NAME
 EOF
 
-if [ "$ASSUME_YES" -ne 1 ]; then
-  # When piped (curl … | sudo bash) stdin IS the script itself, so a plain
-  # `read` would consume the REST of the script and desync the parser — the
-  # "line N: syntax error near unexpected token '('" a fresh curl|bash install
-  # hits. Read the answer from the controlling terminal instead. If there's no
-  # TTY at all (cron/CI/headless), the user opted in by running us → proceed.
-  reply=""
+# Proceed without an interactive prompt by default — running the installer
+# (whether `curl … | sudo bash` or `./install.sh`) is itself the confirmation.
+# Set CONFIRM=1 to require an explicit y/N first; when piped (stdin is the
+# script) the prompt is read from the controlling terminal, never stdin, so it
+# can't desync the parser. `-y`/`--yes` stays accepted as a no-op (back-compat).
+if [ "${CONFIRM:-0}" = "1" ] && [ "$ASSUME_YES" -ne 1 ]; then
+  reply="Y"
   if [ -t 0 ]; then
     printf "[install] proceed? [Y/n] "
     read -r reply
   elif { exec 3</dev/tty; } 2>/dev/null; then
-    # Piped, but a controlling terminal is openable — prompt on it (not stdin).
     printf "[install] proceed? [Y/n] "
     read -r reply <&3
     exec 3<&-
-  else
-    echo "[install] non-interactive (no usable TTY) — proceeding; pass -y to silence."
-    reply="Y"
   fi
   case "$reply" in
     n|N|no|NO) echo "aborted."; exit 0 ;;
