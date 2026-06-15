@@ -526,6 +526,37 @@ Description: MeshCore TDOA USB-to-MQTT bridge
  /opt/meshcore-tdoa-gateway-bridge/venv.
 
 Package: meshcore-tdoa-gateway-bridge
+Version: 0.5.21-1
+Architecture: all
+Maintainer: D-creek <noreply@dahllie.nl>
+Installed-Size: 11537
+Depends: python3 (>= 3.9), python3-venv, python3-pip, adduser
+Recommends: systemd
+Filename: ./meshcore-tdoa-gateway-bridge_0.5.21-1_all.deb
+Size: 10417756
+MD5sum: ff2dbaf0d91454fc21856d2cb5f2457c
+SHA1: 19c5b79995309f7038ef8bf16123266d383ed171
+SHA256: 3352625f73fca5494c2c90ab4d9b9cdb5cbfa0928f1efdb3a5b333fcf7626fba
+Section: net
+Priority: optional
+Homepage: https://github.com/D-creek/meshcore-toad-gateway
+Description: MeshCore TDOA USB-to-MQTT bridge
+ The core gateway service: reads each USB-attached MeshCore LoRa receiver's
+ serial stream, parses the TDOA-extended frames (per-packet reception records
+ with hardware-captured arrival timestamps, GPS quality, device telemetry) and
+ republishes them to MQTT for the cloud collector. Also drives firmware OTA and
+ an optional loopback TCP passthrough for companion-app access.
+ .
+ Ships with NO credentials. The per-gateway MQTT credentials are written to a
+ root-only 0600 /etc/meshcore-tdoa-gateway/bridge.yaml at register time by the
+ portal package's register script; the bridge only ever reads them. Portal-set
+ fields (per-port role + tcp_passthrough) live in a separate portal-writable
+ bridge-overrides.yaml, so the unprivileged portal can never write the secrets
+ this root daemon reads. Pure Python; the same .deb installs on amd64, arm64,
+ armhf and armv6. The postinst builds an isolated venv at
+ /opt/meshcore-tdoa-gateway-bridge/venv.
+
+Package: meshcore-tdoa-gateway-bridge
 Version: 0.5.3-1
 Architecture: all
 Maintainer: D-creek <noreply@dahllie.nl>
