@@ -24,7 +24,7 @@ trap 'echo "[meshcore-tdoa-gateway-portal] install failed at line $LINENO" >&2' 
 # ── constants ────────────────────────────────────────────────────────
 
 REPO_BASE="${MESHCORE_GATEWAY_REPO:-https://d-creek.github.io/meshcore-tdoa-gateway-installers/apt}"
-PKG_NAME="meshcore-tdoa-gateway"
+PKG_NAME="meshcore-tdoa-gateway-portal"
 KEYRING="/etc/apt/keyrings/meshcore-tdoa-gateway.gpg"
 SOURCES_LIST="/etc/apt/sources.list.d/meshcore-tdoa-gateway.list"
 
@@ -267,12 +267,9 @@ fi
 
 # ── 5. enable + start (postinst already does this; idempotent) ──────
 
-# The unified meshcore-tdoa-gateway package has no <pkg>.service unit — it
-# ships the bridge + portal units (the deb postinst already enables/starts the
-# full set). Enable/restart the two long-running services explicitly here.
 if [ -d /run/systemd/system ]; then
-  systemctl enable meshcore-tdoa-gateway-bridge meshcore-tdoa-gateway-portal >/dev/null 2>&1 || true
-  systemctl restart meshcore-tdoa-gateway-bridge meshcore-tdoa-gateway-portal || true
+  systemctl enable "$PKG_NAME" >/dev/null 2>&1 || true
+  systemctl restart "$PKG_NAME" || true
 fi
 
 # ── done ─────────────────────────────────────────────────────────────
