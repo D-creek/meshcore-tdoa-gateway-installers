@@ -24,7 +24,7 @@ trap 'echo "[meshcore-tdoa-gateway-portal] install failed at line $LINENO" >&2' 
 # ── constants ────────────────────────────────────────────────────────
 
 REPO_BASE="${MESHCORE_GATEWAY_REPO:-https://d-creek.github.io/meshcore-tdoa-gateway-installers/apt}"
-PKG_NAME="meshcore-tdoa-gateway-portal"
+PKG_NAME="meshcore-tdoa-gateway"
 KEYRING="/etc/apt/keyrings/meshcore-tdoa-gateway.gpg"
 SOURCES_LIST="/etc/apt/sources.list.d/meshcore-tdoa-gateway.list"
 
@@ -120,7 +120,7 @@ cat <<EOF
     2. fetch + fingerprint-verify the apt signing key, add a SIGNED apt-source
     3. apt-get update
     4. apt-get install -y $PKG_NAME
-    5. systemctl enable --now $PKG_NAME
+    5. systemctl enable --now meshcore-tdoa-gateway-bridge meshcore-tdoa-gateway-portal
 EOF
 
 # Proceed without an interactive prompt by default — running the installer
@@ -267,9 +267,12 @@ fi
 
 # ── 5. enable + start (postinst already does this; idempotent) ──────
 
+# The unified meshcore-tdoa-gateway package ships NO <pkg>.service unit — it
+# carries the two existing units (bridge + portal). Enable/restart those by
+# name (the postinst already does this; this is idempotent belt-and-braces).
 if [ -d /run/systemd/system ]; then
-  systemctl enable "$PKG_NAME" >/dev/null 2>&1 || true
-  systemctl restart "$PKG_NAME" || true
+  systemctl enable meshcore-tdoa-gateway-bridge meshcore-tdoa-gateway-portal >/dev/null 2>&1 || true
+  systemctl restart meshcore-tdoa-gateway-bridge meshcore-tdoa-gateway-portal || true
 fi
 
 # ── done ─────────────────────────────────────────────────────────────
@@ -300,8 +303,8 @@ cat <<EOF
 ────────────────────────────────────────────────────────────
 
  Handy commands:
-   logs:    journalctl -u $PKG_NAME -f
-   restart: systemctl restart $PKG_NAME
+   logs:    journalctl -u meshcore-tdoa-gateway-bridge -f
+   restart: systemctl restart meshcore-tdoa-gateway-bridge meshcore-tdoa-gateway-portal
    config:  /etc/meshcore-tdoa-gateway-portal/portal.env
    devices: /etc/meshcore-tdoa-gateway/devices/<slug>/
 EOF
