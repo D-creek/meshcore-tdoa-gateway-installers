@@ -218,17 +218,17 @@ Package: meshcore-tdoa-gateway
 Version: 1.0.6
 Architecture: all
 Maintainer: D-creek <noreply@dahllie.nl>
-Installed-Size: 40341
+Installed-Size: 40344
 Depends: python3 (>= 3.9), python3-venv, python3-pip, adduser, curl, stm32flash
 Recommends: systemd
 Conflicts: meshcore-tdoa-gateway-bridge, meshcore-tdoa-gateway-portal
 Replaces: meshcore-tdoa-gateway-bridge, meshcore-tdoa-gateway-portal
 Provides: meshcore-tdoa-gateway-bridge, meshcore-tdoa-gateway-portal
 Filename: ./meshcore-tdoa-gateway_1.0.6_all.deb
-Size: 35529768
-MD5sum: 22830f91f308e822e6f87afc723a96c4
-SHA1: 927929e2dd72f046192a3dd17ae1a7089d4b5dcb
-SHA256: 8d0468c9be3cc0e68299072b6eb485cd8a2b4cfc84d13cc64d803056e5a96daa
+Size: 35529664
+MD5sum: d2b8a3b076016edeb6907f29ec67a36c
+SHA1: 89ebbd47feed4ec0dfc0c272e863cd5f3cc5546c
+SHA256: d0cec55fbd638fed1ff66fc18e08cc59990a410f54ec19c5ac019123495a3995
 Section: net
 Priority: optional
 Homepage: https://github.com/D-creek/meshcore-toad-gateway
