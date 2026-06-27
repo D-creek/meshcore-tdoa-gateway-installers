@@ -14,6 +14,10 @@ portal:
 The portal **source** code lives in a separate **private** repo. Only
 release artefacts are mirrored here.
 
+The `apt/` and `firmware/` directories are generated release outputs from the
+upstream build/release pipelines. Do not hand-edit them in this repository;
+publish a new package or firmware release from the source repo instead.
+
 ## One-line install
 
 ```bash
@@ -36,13 +40,15 @@ curl -fsSL https://d-creek.github.io/meshcore-tdoa-gateway-installers/uninstall.
 ```
 
 Reverses everything the installer + package set up — **including the apt
-repo source**: stops & disables all `meshcore-*` services/timers, purges
-the package, removes the apt source + keyring + apt patch hook, deletes the
-`/usr/local/sbin` helper scripts (not dpkg-tracked), the udev rule +
-`/dev/meshcore` symlinks + sudoers drop-in, the config/data dirs, and the
-`meshcore-tdoa-portal` system user. Best-effort + idempotent. Omit `-y` for
-an interactive confirmation; add `--keep-config` to keep `/etc` + `/var`
-config & data and only remove the package, services, and repo.
+repo source**: stops & disables all `meshcore-*` services/timers, purges the
+current unified `meshcore-tdoa-gateway` package plus the legacy split
+`meshcore-tdoa-gateway-portal` / `meshcore-tdoa-gateway-bridge` package names,
+removes the apt source + keyring + apt patch hook, deletes the `/usr/local/sbin`
+helper scripts (not dpkg-tracked), the udev rule + `/dev/meshcore` symlinks +
+sudoers drop-in, the config/data dirs, and the `meshcore-tdoa-portal` system
+user. Best-effort + idempotent. Omit `-y` for an interactive confirmation; add
+`--keep-config` to keep `/etc` + `/var` config & data and only remove the
+package, services, and repo.
 
 ## Supported hardware
 
@@ -81,7 +87,7 @@ gpg --show-keys --with-colons /etc/apt/keyrings/meshcore-tdoa-gateway.gpg \
 echo 'deb [signed-by=/etc/apt/keyrings/meshcore-tdoa-gateway.gpg] https://d-creek.github.io/meshcore-tdoa-gateway-installers/apt ./' \
   | sudo tee /etc/apt/sources.list.d/meshcore-tdoa-gateway.list
 sudo apt-get update
-sudo apt-get install meshcore-tdoa-gateway-portal
+sudo apt-get install meshcore-tdoa-gateway
 ```
 
 `install.sh` does exactly this for you (key fetch + fingerprint pin + `signed-by`
@@ -89,14 +95,20 @@ source); the manual steps above are only for a hand-built setup.
 
 ## What it installs
 
-Two packages (installed together by the one-liner):
+The one-liner installs the unified **`meshcore-tdoa-gateway`** package. Current
+releases ship the bridge and portal together in that package; the historical
+`meshcore-tdoa-gateway-portal` and `meshcore-tdoa-gateway-bridge` names are
+legacy split-package names that the unified package replaces/provides for
+upgrade compatibility.
 
-- **`meshcore-tdoa-gateway-portal`** — the local web UI + onboarding/registration.
-- **`meshcore-tdoa-gateway-bridge`** — the core service that reads each USB LoRa
-  receiver and publishes TDOA frames to the cloud over MQTT. Its source is
-  private; only the built `.deb` ships here. Config is privilege-separated: the
-  root-only `bridge.yaml` (0600) holds the MQTT secrets; the portal writes only a
-  separate overrides file — it never reads the secrets.
+Included services:
+
+- **Portal** — the local web UI + onboarding/registration.
+- **Bridge** — the core service that reads each USB LoRa receiver and publishes
+  TDOA frames to the cloud over MQTT. Its source is private; only the built
+  `.deb` ships here. Config is privilege-separated: the root-only `bridge.yaml`
+  (0600) holds the MQTT secrets; the portal writes only a separate overrides
+  file — it never reads the secrets.
 
 Layout:
 
@@ -153,6 +165,12 @@ self-hosted runner) builds a fresh deb + firmware bundle on every
 `portal-vX.Y.Z` tag, then cross-pushes the artefacts here. GitHub
 Pages rebuilds in ~1 minute and the new candidate is visible to apt
 worldwide.
+
+Because those files are generated, fixes to packaged application code,
+Debian maintainer scripts, APT metadata, or firmware images should be made in
+their source repositories and released through the pipeline. This repository
+should only change installer scripts, documentation, workflow guardrails, or
+freshly published artefacts produced by that pipeline.
 
 Backfilled history of every shipped release: see [`apt/`](apt/).
 
