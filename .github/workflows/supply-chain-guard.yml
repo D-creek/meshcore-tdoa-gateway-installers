@@ -16,6 +16,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Shell syntax
+        run: |
+          bash -n install.sh
+          bash -n uninstall.sh
+      - name: Install ShellCheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+      - name: ShellCheck installer scripts
+        run: |
+          shellcheck --shell=bash -e SC1091,SC2086 install.sh uninstall.sh
       - name: No retired patch mechanism / no unsigned apt source
         run: |
           fail=0
