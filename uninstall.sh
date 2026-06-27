@@ -13,6 +13,7 @@
 #                  services, apt repo source, and helper scripts
 set -u
 
+UNIFIED_PKG="meshcore-tdoa-gateway"
 PKG_NAME="meshcore-tdoa-gateway-portal"
 # Since 0.4.0 the bridge is a SEPARATE package the portal Depends on. Purge it
 # too so an uninstall doesn't leave the bridge venv/service orphaned. Purge the
@@ -68,7 +69,7 @@ fi
 cat <<PLAN
 [uninstall] meshcore-tdoa-gateway-portal — removal plan:
   1. stop + disable all meshcore-* systemd services and timers
-  2. apt-get purge ${PKG_NAME}
+  2. apt-get purge ${UNIFIED_PKG} plus legacy ${PKG_NAME} / ${BRIDGE_PKG}
   3. remove the apt repo source + keyring + apt patch hook   (the "repo")
   4. remove /usr/local/sbin helper scripts (not dpkg-tracked)
   5. remove the udev rule + /dev/meshcore symlinks + sudoers drop-in
@@ -106,13 +107,15 @@ for u in $UNITS; do
   systemctl disable "$u" >/dev/null 2>&1 || true
 done
 
-echo "[uninstall] 2/8 purge ${PKG_NAME} + ${BRIDGE_PKG} ..."
-# Purge ONLY our two packages — portal FIRST (it Depends on the bridge), then
-# the bridge. We deliberately do NOT run `apt-get autoremove`: our Depends
+echo "[uninstall] 2/8 purge ${UNIFIED_PKG} + legacy ${PKG_NAME} + ${BRIDGE_PKG} ..."
+# Purge ONLY our packages — the current unified package first, then the legacy
+# split packages for older/partial installs. We deliberately do NOT run
+# `apt-get autoremove`: our Depends
 # (curl, python3-venv, python3-pip, stm32flash, adduser, …) are general-purpose
 # packages that OTHER software on this Pi may rely on. autoremove would sweep
 # them if it thinks nothing else needs them — which can break unrelated apps on
 # a shared host. Removing only our own packages is the safe, surgical choice.
+DEBIAN_FRONTEND=noninteractive apt-get purge -y -qq "$UNIFIED_PKG" >/dev/null 2>&1 || true
 DEBIAN_FRONTEND=noninteractive apt-get purge -y -qq "$PKG_NAME" >/dev/null 2>&1 || true
 DEBIAN_FRONTEND=noninteractive apt-get purge -y -qq "$BRIDGE_PKG" >/dev/null 2>&1 || true
 

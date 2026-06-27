@@ -28,6 +28,14 @@ PKG_NAME="meshcore-tdoa-gateway"
 KEYRING="/etc/apt/keyrings/meshcore-tdoa-gateway.gpg"
 SOURCES_LIST="/etc/apt/sources.list.d/meshcore-tdoa-gateway.list"
 
+require_cmd() {
+  if ! command -v "$1" >/dev/null 2>&1; then
+    echo "[install] refusing: required command '$1' not found." >&2
+    echo "          Install it first, then re-run this installer." >&2
+    exit 1
+  fi
+}
+
 ASSUME_YES=0
 for arg in "$@"; do
   case "$arg" in
@@ -56,6 +64,10 @@ if ! command -v apt-get >/dev/null 2>&1; then
   echo "          Debian, Ubuntu, DietPi)." >&2
   exit 1
 fi
+
+for cmd in dpkg awk sed mktemp hostname; do
+  require_cmd "$cmd"
+done
 
 ARCH=$(dpkg --print-architecture)
 case "$ARCH" in
@@ -145,6 +157,25 @@ fi
 
 # Must be root for apt + systemctl. Re-exec via sudo if not.
 if [ "$(id -u)" -ne 0 ]; then
+  if [ ! -f "$0" ] || [ ! -r "$0" ] || ! grep -q 'MeshCore TDOA gateway portal' "$0" 2>/dev/null; then
+    cat >&2 <<EOF
+[install] refusing: this installer was not started as root, and it is being
+          read from stdin (or from a non-script path), so it cannot safely
+          re-run itself with sudo.
+
+Run the one-line installer as documented:
+  curl -fsSL https://d-creek.github.io/meshcore-tdoa-gateway-installers/install.sh | sudo bash
+
+Or, if you downloaded the file first:
+  sudo bash ./install.sh
+EOF
+    exit 1
+  fi
+  if ! command -v sudo >/dev/null 2>&1; then
+    echo "[install] refusing: sudo not found, and this installer needs root for apt + systemctl." >&2
+    echo "          Re-run as root, or install sudo first." >&2
+    exit 1
+  fi
   echo "[install] re-running with sudo for apt + systemctl"
   exec sudo -E bash "$0" "$@" -y
 fi
@@ -161,6 +192,10 @@ DEBIAN_FRONTEND=noninteractive apt-get update -qq
 DEBIAN_FRONTEND=noninteractive apt-get install -y -qq \
   sudo curl gnupg ca-certificates python3-venv apt-transport-https >/dev/null
 
+for cmd in curl gpg; do
+  require_cmd "$cmd"
+done
+
 # ── 2. apt-source ────────────────────────────────────────────────────
 
 # Ensure the keyring directory exists (older Debians don't ship it).
@@ -176,7 +211,8 @@ EXPECTED_FPR="D63D42C7FEAE42B6"   # ed25519 apt signing key, last 16 hex of the 
 KEY_URL="${REPO_BASE%/apt}/meshcore-tdoa-gateway-keyring.asc"
 echo "[install] fetching apt signing key from $KEY_URL"
 TMPKEY=$(mktemp)
-trap 'rm -f "$TMPKEY"' EXIT
+TMPKEYRING=$(mktemp)
+trap 'rm -f "$TMPKEY" "$TMPKEYRING"' EXIT
 if ! curl -fsSL "$KEY_URL" -o "$TMPKEY" || [ ! -s "$TMPKEY" ]; then
   echo "[install] FATAL: could not fetch the apt signing key from $KEY_URL." >&2
   echo "[install] Refusing to install an UNVERIFIED apt source. Check your network" >&2
@@ -185,11 +221,11 @@ if ! curl -fsSL "$KEY_URL" -o "$TMPKEY" || [ ! -s "$TMPKEY" ]; then
 fi
 # Dearmor, then verify the key's fingerprint matches the pinned value before we
 # trust it. gpg --show-keys reads the armored/dearmored key without importing.
-if ! gpg --dearmor < "$TMPKEY" > "$KEYRING" 2>/dev/null; then
+if ! gpg --dearmor < "$TMPKEY" > "$TMPKEYRING" 2>/dev/null; then
   echo "[install] FATAL: fetched signing key is not a valid OpenPGP key. Aborting." >&2
-  rm -f "$KEYRING"; exit 1
+  exit 1
 fi
-FETCHED_FPR=$(gpg --show-keys --with-colons "$KEYRING" 2>/dev/null | awk -F: '/^fpr:/{print $10; exit}')
+FETCHED_FPR=$(gpg --show-keys --with-colons "$TMPKEYRING" 2>/dev/null | awk -F: '/^fpr:/{print $10; exit}')
 case "$FETCHED_FPR" in
   *"$EXPECTED_FPR")
     : ;;  # fingerprint ends with the pinned id — good
@@ -198,9 +234,9 @@ case "$FETCHED_FPR" in
     echo "[install]   expected to end with: $EXPECTED_FPR" >&2
     echo "[install]   got:                  ${FETCHED_FPR:-<none>}" >&2
     echo "[install] This could indicate a tampered key. Aborting install." >&2
-    rm -f "$KEYRING"; exit 1 ;;
+    exit 1 ;;
 esac
-chmod 0644 "$KEYRING"
+install -m 0644 "$TMPKEYRING" "$KEYRING"
 SOURCE_OPTS="signed-by=$KEYRING"
 echo "[install] apt signing key verified (fpr …$EXPECTED_FPR)"
 
