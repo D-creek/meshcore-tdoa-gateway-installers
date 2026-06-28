@@ -21,7 +21,6 @@ __pycache__/
 # --- AI/agent + internal working files (never publish) ---
 .claude/
 CLAUDE.md
-AGENTS.md
 GEMINI.md
 .cursor/
 .cursorrules
