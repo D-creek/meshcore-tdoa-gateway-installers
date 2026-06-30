@@ -5,22 +5,22 @@ Origin: meshcore-tdoa-gateway-installers
 Label: meshcore-tdoa-gateway-portal
 Suite: stable
 Codename: stable
-Date: Tue, 30 Jun 2026 21:54:12 +0000
+Date: Tue, 30 Jun 2026 22:13:57 +0000
 Architectures: all
 Description: meshcore-tdoa-gateway-portal flat apt repository
 MD5Sum:
- 18745124692ab7bba32522b06f07928c 109697 Packages
- 042e139bc6fc8af25c826de998e4b92c 10532 Packages.gz
+ 621948d92a4f7ad8a10f42036dce4775 111380 Packages
+ df473f79322698efa6a1ac399e02dd60 10637 Packages.gz
 SHA1:
- 877760a2a327fe8640c476ccd2e4f9e6f2955d4c 109697 Packages
- 0e915f050eddab6006097472ac6ee25cdcc91d13 10532 Packages.gz
+ 0b8da3d4a0415630186b890485502525d61c630e 111380 Packages
+ 4e0cd489f59a8fe1159c33ab1eaf225e5ce54e18 10637 Packages.gz
 SHA256:
- ccd37c16b828cc149a4c924fbef11154ee40ae76693ebd4656f250f5cf235532 109697 Packages
- 7f04ee9b11b21944dd0fb108e4b05f793f9e1383b2d588a0f7092efe09410c0f 10532 Packages.gz
+ 63cd6fb68bc9521401cbd73b82a6e857443ca39c442905adb2c356590b723844 111380 Packages
+ d552ed1a44daf704f3460fd59de3c714c5d08344a063d08090fa13f76e06547d 10637 Packages.gz
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYIAB0WIQQNuHEvVkaBvee/vTrWPULH/q5CtgUCakQ7BAAKCRDWPULH/q5C
-tvu/AP0ZWIFUupB2RwN11oi1Vvlxw01BV4gwhRI79ccK0zwddQD8DpUg4CFrRcRI
-80yPcD2GW44xZ1uH7/NLrlszgBwDWQc=
-=70x5
+iHUEARYIAB0WIQQNuHEvVkaBvee/vTrWPULH/q5CtgUCakQ/pgAKCRDWPULH/q5C
+toevAPwMmHbprgVMYmGPzrxv8X6/Btnk6RxeHqi0DWStqAPhLAEAzLYU143vIWxK
+rx51M9JDIqlM4jFmMi7WL1oF7JKPxgc=
+=cNR/
 -----END PGP SIGNATURE-----
