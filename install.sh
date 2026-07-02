@@ -225,6 +225,15 @@ if ! gpg --dearmor < "$TMPKEY" > "$TMPKEYRING" 2>/dev/null; then
   echo "[install] FATAL: fetched signing key is not a valid OpenPGP key. Aborting." >&2
   exit 1
 fi
+# The fingerprint check below matches only the FIRST key. Reject a keyring that
+# carries more than one primary key, so a tampered bundle [pinned-key, attacker-
+# key] can't slip a second trusted key past the pin and into the apt trust root.
+KEY_COUNT=$(gpg --show-keys --with-colons "$TMPKEYRING" 2>/dev/null | grep -c '^pub:')
+if [ "$KEY_COUNT" -ne 1 ]; then
+  echo "[install] FATAL: signing keyring must contain exactly one key, found ${KEY_COUNT}." >&2
+  echo "[install] Refusing to trust a multi-key bundle. Aborting install." >&2
+  exit 1
+fi
 FETCHED_FPR=$(gpg --show-keys --with-colons "$TMPKEYRING" 2>/dev/null | awk -F: '/^fpr:/{print $10; exit}')
 case "$FETCHED_FPR" in
   *"$EXPECTED_FPR")
