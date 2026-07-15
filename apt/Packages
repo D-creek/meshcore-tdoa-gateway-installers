@@ -286,3 +286,39 @@ Description: MeshCore TDOA gateway (bridge + portal, unified package)
  The postinst builds both venvs with an OFFLINE wheelhouse so a fresh
  install never requires PyPI access.
 
+Package: meshcore-tdoa-gateway
+Version: 1.0.27
+Architecture: all
+Maintainer: D-creek <noreply@dahllie.nl>
+Installed-Size: 40478
+Depends: python3 (>= 3.9), python3-venv, python3-pip, adduser, curl, stm32flash
+Recommends: systemd
+Conflicts: meshcore-tdoa-gateway-bridge, meshcore-tdoa-gateway-portal
+Replaces: meshcore-tdoa-gateway-bridge, meshcore-tdoa-gateway-portal
+Provides: meshcore-tdoa-gateway-bridge, meshcore-tdoa-gateway-portal
+Filename: ./meshcore-tdoa-gateway_1.0.27_all.deb
+Size: 35567796
+MD5sum: 462321be7d5b4c191e365a544b3fbfc3
+SHA1: 202f8e179c8df45224b22bbbab848cd58757a2db
+SHA256: c4425da21860b580e35c1f0f2f2fb17433fc52614b72dc86e040a21315f729c3
+Section: net
+Priority: optional
+Homepage: https://github.com/D-creek/meshcore-toad-gateway
+Description: MeshCore TDOA gateway (bridge + portal, unified package)
+ Replaces both meshcore-tdoa-gateway-bridge and meshcore-tdoa-gateway-portal
+ with a single unified Debian package. Phase 3 packaging collapse: the
+ mesh-relay is dropped entirely; the bridge publishes directly to all
+ configured brokers.
+ .
+ The bridge reads USB-attached MeshCore LoRa receivers, parses TDOA-extended
+ frames and publishes them to MQTT. The portal provides a web UI for
+ configuring per-USB-device MQTT broker fan-out and viewing receiver health.
+ .
+ Both services run from isolated Python venvs at their existing paths:
+   /opt/meshcore-tdoa-gateway-bridge/venv  (bridge, root service)
+   /opt/meshcore-tdoa-gateway-portal/venv  (portal, unprivileged service)
+ .
+ Pure Python; the same .deb installs on amd64, arm64, armhf and armv6.
+ The postinst builds both venvs with an OFFLINE wheelhouse so a fresh
+ install never requires PyPI access.
+
