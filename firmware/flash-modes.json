@@ -48,5 +48,12 @@
     "tool": "stm32flash",
     "extension": "bin",
     "auto_dfu": true
+  },
+  "weact_g474_lr2021": {
+    "label": "WeAct G474 + LR2021 — STM32G474CEU6 + NiceRF LR2021",
+    "instructions": "Just click Flash — the portal asks the running firmware to jump into the STM32 ROM DFU bootloader (companion CMD_ENTER_USB_DFU + 'dfu!' magic: the firmware stashes a TAMP backup-register flag and resets; initVariant() jumps to the system bootloader on the next boot), waits for the 0483:df11 DFU interface to enumerate, then writes the raw .bin at 0x08000000 with dfu-util and resets back into the app (:leave). No hardware touch needed. FALLBACK: if the 0483:df11 interface never appears, the running firmware predates the CMD_ENTER_USB_DFU handler — do a one-time manual DFU flash (hold BOOT0 while resetting), after which every future flash is automatic.",
+    "tool": "stm32-dfu",
+    "extension": "bin",
+    "auto_dfu": true
   }
 }
